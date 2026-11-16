@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#171714" />
   <meta name="description" content="موج — مشغل وسائطك المحلية، ومكتبتك الخاصة في مكان واحد." />
-  <title>موج — مشغل ميديا شخصي</title>
+  <title>MAWJ — مشغل ميديا شخصي</title>
   <link rel="icon" type="image/svg+xml" href="/assets/mawj/mawj-mark.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,16 +41,18 @@
     :root{--accent-gradient:linear-gradient(115deg,var(--accent),var(--accent));--accent-soft:rgba(243,164,81,.14)}
     .primary-button{background:var(--accent-gradient);color:var(--accent-ink)}
     .nav-item.active,.playlist-item.active{background:var(--accent-soft)}
-    .theme-control{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}
-    .theme-control select{height:38px;max-width:122px;padding:0 9px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);font-size:11px;cursor:pointer}
-    .theme-control select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-    @media(max-width:700px){.theme-control select{height:36px;max-width:104px;padding:0 6px;font-size:10px}.top-actions{gap:6px}}
+    .theme-control{display:flex;align-items:center;justify-content:center}
+    .theme-toggle{width:34px;height:34px;min-width:34px;padding:0;border:2px solid var(--line);border-radius:50%;background:var(--accent-gradient);box-shadow:0 0 0 3px var(--accent-soft);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+    .theme-toggle:hover{transform:scale(1.09);border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+    .theme-toggle:active{transform:scale(.94)}
+    .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+    @media(max-width:700px){.theme-toggle{width:31px;height:31px;min-width:31px}.top-actions{gap:6px}}
   @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
 </head>
 <body>
   <div class="app" id="app">
     <aside class="sidebar" aria-label="التنقل الرئيسي">
-      <div class="brand"><button class="brand-logo-button" id="sidebarRestoreLogo" type="button" title="فتح القائمة" aria-label="فتح القائمة"><img src="/assets/mawj/mawj-mark.svg" alt="" /></button><div class="brand-copy"><div class="brand-name">موج</div><span class="brand-caption">وسائطك، على طريقتك</span></div><button class="sidebar-collapse-button" id="sidebarCollapse" type="button" title="طي القائمة" aria-label="طي القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 6-6 6 6 6"/></svg></button></div>
+      <div class="brand"><button class="brand-logo-button" id="sidebarRestoreLogo" type="button" title="فتح القائمة" aria-label="فتح القائمة"><img src="/assets/mawj/mawj-mark.svg" alt="" /></button><div class="brand-copy"><div class="brand-name">MAWJ</div><span class="brand-caption">وسائطك، على طريقتك</span></div><button class="sidebar-collapse-button" id="sidebarCollapse" type="button" title="طي القائمة" aria-label="طي القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 6-6 6 6 6"/></svg></button></div>
       <div><p class="section-label">مكتبتك</p><nav class="nav-list" id="navFilters" aria-label="تصفية المكتبة">
         <button class="nav-item active" data-filter="all"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5.5h16v13H4zM8 5.5V3h8v2.5M8 10h8M8 14h5"/></svg><span>كل الملفات</span><span class="count" id="allCount">0</span></button>
         <button class="nav-item" data-filter="audio"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-3-3c1.7 0 3 1.3 3 3Zm11-2a3 3 0 1 1-3-3c1.7 0 3 1.3 3 3Z"/></svg><span>الأغاني</span><span class="count" id="audioCount">0</span></button>
@@ -61,7 +63,7 @@
       <div class="local-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v5c0 4.6 2.8 8.4 7 10 4.2-1.6 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span><b>خصوصيتك محفوظة</b> ملفاتك تبقى على هذا الجهاز.</span></div>
     </aside>
     <main class="main">
-      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><label class="theme-control"><span>الثيم</span><select id="themeSelect" aria-label="اختيار ألوان موج"><option value="default">الافتراضي</option><option value="red">أحمر متدرج</option><option value="purple">أرجواني متدرج</option><option value="blue">أزرق متدرج</option></select></label><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
+      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><div class="theme-control"><button class="theme-toggle" id="themeToggle" type="button" aria-label="تغيير ألوان موج" title="تغيير ألوان موج"></button></div><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
       <div class="heading-row"><div><p class="eyebrow" id="pageEyebrow">مساحتك الخاصة</p><h1 class="page-title" id="pageTitle">كل ملفاتك</h1><p class="page-subtitle" id="pageSubtitle">مكتبتك المحلية، مرتبة على إيقاعك.</p></div><span class="view-count" id="viewCount">0 ملف</span></div>
       <div class="mobile-playlists"><select class="playlist-switch" id="mobilePlaylistSelect" aria-label="اختيار قائمة تشغيل"><option value="all">كل الملفات</option></select><button class="icon-button" id="mobileNewPlaylist" type="button" aria-label="إنشاء قائمة تشغيل" title="قائمة تشغيل جديدة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button></div>
       <section class="hero-player" aria-label="مشغل موج"><div class="hero-copy"><p class="eyebrow" id="heroEyebrow">ابدأ من هنا</p><h2 id="heroTitle">صوتك يبدأ من مكتبتك.</h2><p id="heroText">أضف أغانيك أو فيديوهاتك، واجمعها في قوائم تناسب لحظتك. لا تُرفع ملفاتك إلى أي مكان.</p><button class="primary-button" id="heroAction" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>أضف أول ملف</button></div><div class="hero-art" aria-hidden="true"><span class="orbit"></span><img src="/assets/mawj/mawj-mark.svg" alt="" /></div></section>
@@ -83,7 +85,7 @@
       const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
       const TEXT_EXT=new Set(["txt","text","md","markdown","rst","log","csv","tsv","json","jsonl","xml","yaml","yml","toml","ini","conf","cfg","env","html","htm","css","scss","sass","less","js","mjs","cjs","ts","tsx","jsx","vue","svelte","py","ipynb","java","c","h","cpp","hpp","cs","go","rs","rb","php","sql","sh","bash","zsh","ps1","bat","cmd","kt","kts","swift","dart","lua","r","pl","ex","exs","erl","hrl","hs","lhs","scala","clj","cljs","cljc","fs","fsx","vb","vbs","asm","s","makefile","dockerfile","gitignore","properties","gradle","graphql","gql","proto","tex","bib","adoc","lock"]),AUDIO_EXT=new Set(["mp3","mp2","mp1","mpga","m2a","m4a","m4b","m4p","m4r","aac","adts","wav","wave","bwf","rf64","w64","aif","aiff","aifc","au","snd","raw","pcm","oga","ogg","opus","spx","flac","fla","wma","asf","amr","awb","3ga","3gp","3g2","caf","mid","midi","kar","rmi","mka","ape","mac","mpc","mpp","mp+","wv","wvc","tak","tta","dsf","dff","ac3","eac3","ec3","dts","dtshd","ast","atrac","ra","ram","vqf","oma","aa3","at3","aax"]),VIDEO_EXT=new Set(["mp4","m4v","mov","webm","mkv","avi","wmv","flv","mpg","mpeg","3gp","3g2","ogv","ts","mts","m2ts"]);
       const state={items:[],playlists:[],filter:"all",activePlaylist:null,search:"",currentId:null,queue:[],shuffle:false,repeatMode:"off",playlistKind:"audio",pendingAdd:null,pendingThumbnailId:null,urls:new Map(),thumbUrls:new Map(),thumbnailTasks:new Map(),viewMode:localStorage.getItem("mawj-view-mode")||"list",db:null,audioContext:null,visualizers:new WeakMap(),activeAnalyser:null,activeEngine:null,waveformFrame:null};
-      const themeSelect=$("#themeSelect");
+      const themeToggle=$("#themeToggle");
       const mawThemes={
         default:{accent:"#f3a451",ink:"#1e1710",gradient:"linear-gradient(115deg,#f3a451 0%,#e98c50 100%)",soft:"rgba(243,164,81,.14)"},
         red:{accent:"#f05268",ink:"#fff7f8",gradient:"linear-gradient(115deg,#fb7185 0%,#ef4444 52%,#be123c 100%)",soft:"rgba(244,63,94,.16)"},
@@ -98,11 +100,12 @@
         root.style.setProperty("--accent-gradient",t.gradient);
         root.style.setProperty("--accent-soft",t.soft);
         root.dataset.mawjTheme=key;
-        if(themeSelect)themeSelect.value=key;
+        if(themeToggle){const labels={default:"الافتراضي",red:"الأحمر",purple:"الأرجواني",blue:"الأزرق"};themeToggle.title="الثيم الحالي: "+labels[key]+" · اضغط للتغيير";themeToggle.setAttribute("aria-label","الثيم الحالي: "+labels[key]+". اضغط للتغيير")}
         if(persist){try{localStorage.setItem("mawj-theme",key)}catch{}}
       }
       applyMawjTheme((()=>{try{return localStorage.getItem("mawj-theme")||"default"}catch{return"default"}})(),false);
-      themeSelect?.addEventListener("change",e=>applyMawjTheme(e.target.value));
+      const themeOrder=Object.keys(mawThemes);
+      themeToggle?.addEventListener("click",()=>{const current=document.documentElement.dataset.mawjTheme||"default";const index=themeOrder.indexOf(current);applyMawjTheme(themeOrder[(index+1)%themeOrder.length]);});
 
       const dbOpen=()=>new Promise((resolve,reject)=>{const req=indexedDB.open("mawj-library",1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains("media"))db.createObjectStore("media",{keyPath:"id"});if(!db.objectStoreNames.contains("playlists"))db.createObjectStore("playlists",{keyPath:"id"});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
       const reqResult=req=>new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
