@@ -36,6 +36,15 @@
 
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
     .now-waveform{display:block;width:clamp(58px,8vw,108px);height:36px;flex:0 1 108px;min-width:48px;opacity:.95}.app.sidebar-collapsed .sidebar-collapse-button{display:none}@media(max-width:700px){.now-waveform{width:58px;height:30px;flex:0 0 58px;min-width:58px}.now-playing{gap:7px}.now-copy{flex:1;min-width:0}.progress{height:7px}}
+
+    /* Mawj color themes: visual-only CSS variables, independent from playback and library logic */
+    :root{--accent-gradient:linear-gradient(115deg,var(--accent),var(--accent));--accent-soft:rgba(243,164,81,.14)}
+    .primary-button{background:var(--accent-gradient);color:var(--accent-ink)}
+    .nav-item.active,.playlist-item.active{background:var(--accent-soft)}
+    .theme-control{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}
+    .theme-control select{height:38px;max-width:122px;padding:0 9px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);font-size:11px;cursor:pointer}
+    .theme-control select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    @media(max-width:700px){.theme-control select{height:36px;max-width:104px;padding:0 6px;font-size:10px}.top-actions{gap:6px}}
   @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
 </head>
 <body>
@@ -52,7 +61,7 @@
       <div class="local-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v5c0 4.6 2.8 8.4 7 10 4.2-1.6 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span><b>خصوصيتك محفوظة</b> ملفاتك تبقى على هذا الجهاز.</span></div>
     </aside>
     <main class="main">
-      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
+      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><label class="theme-control"><span>الثيم</span><select id="themeSelect" aria-label="اختيار ألوان موج"><option value="default">الافتراضي</option><option value="red">أحمر متدرج</option><option value="purple">أرجواني متدرج</option><option value="blue">أزرق متدرج</option></select></label><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
       <div class="heading-row"><div><p class="eyebrow" id="pageEyebrow">مساحتك الخاصة</p><h1 class="page-title" id="pageTitle">كل ملفاتك</h1><p class="page-subtitle" id="pageSubtitle">مكتبتك المحلية، مرتبة على إيقاعك.</p></div><span class="view-count" id="viewCount">0 ملف</span></div>
       <div class="mobile-playlists"><select class="playlist-switch" id="mobilePlaylistSelect" aria-label="اختيار قائمة تشغيل"><option value="all">كل الملفات</option></select><button class="icon-button" id="mobileNewPlaylist" type="button" aria-label="إنشاء قائمة تشغيل" title="قائمة تشغيل جديدة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button></div>
       <section class="hero-player" aria-label="مشغل موج"><div class="hero-copy"><p class="eyebrow" id="heroEyebrow">ابدأ من هنا</p><h2 id="heroTitle">صوتك يبدأ من مكتبتك.</h2><p id="heroText">أضف أغانيك أو فيديوهاتك، واجمعها في قوائم تناسب لحظتك. لا تُرفع ملفاتك إلى أي مكان.</p><button class="primary-button" id="heroAction" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>أضف أول ملف</button></div><div class="hero-art" aria-hidden="true"><span class="orbit"></span><img src="/assets/mawj/mawj-mark.svg" alt="" /></div></section>
@@ -74,6 +83,27 @@
       const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
       const TEXT_EXT=new Set(["txt","text","md","markdown","rst","log","csv","tsv","json","jsonl","xml","yaml","yml","toml","ini","conf","cfg","env","html","htm","css","scss","sass","less","js","mjs","cjs","ts","tsx","jsx","vue","svelte","py","ipynb","java","c","h","cpp","hpp","cs","go","rs","rb","php","sql","sh","bash","zsh","ps1","bat","cmd","kt","kts","swift","dart","lua","r","pl","ex","exs","erl","hrl","hs","lhs","scala","clj","cljs","cljc","fs","fsx","vb","vbs","asm","s","makefile","dockerfile","gitignore","properties","gradle","graphql","gql","proto","tex","bib","adoc","lock"]),AUDIO_EXT=new Set(["mp3","mp2","mp1","mpga","m2a","m4a","m4b","m4p","m4r","aac","adts","wav","wave","bwf","rf64","w64","aif","aiff","aifc","au","snd","raw","pcm","oga","ogg","opus","spx","flac","fla","wma","asf","amr","awb","3ga","3gp","3g2","caf","mid","midi","kar","rmi","mka","ape","mac","mpc","mpp","mp+","wv","wvc","tak","tta","dsf","dff","ac3","eac3","ec3","dts","dtshd","ast","atrac","ra","ram","vqf","oma","aa3","at3","aax"]),VIDEO_EXT=new Set(["mp4","m4v","mov","webm","mkv","avi","wmv","flv","mpg","mpeg","3gp","3g2","ogv","ts","mts","m2ts"]);
       const state={items:[],playlists:[],filter:"all",activePlaylist:null,search:"",currentId:null,queue:[],shuffle:false,repeatMode:"off",playlistKind:"audio",pendingAdd:null,pendingThumbnailId:null,urls:new Map(),thumbUrls:new Map(),thumbnailTasks:new Map(),viewMode:localStorage.getItem("mawj-view-mode")||"list",db:null,audioContext:null,visualizers:new WeakMap(),activeAnalyser:null,activeEngine:null,waveformFrame:null};
+      const themeSelect=$("#themeSelect");
+      const mawThemes={
+        default:{accent:"#f3a451",ink:"#1e1710",gradient:"linear-gradient(115deg,#f3a451 0%,#e98c50 100%)",soft:"rgba(243,164,81,.14)"},
+        red:{accent:"#f05268",ink:"#fff7f8",gradient:"linear-gradient(115deg,#fb7185 0%,#ef4444 52%,#be123c 100%)",soft:"rgba(244,63,94,.16)"},
+        purple:{accent:"#b48af7",ink:"#fffaff",gradient:"linear-gradient(115deg,#c084fc 0%,#a855f7 52%,#7e22ce 100%)",soft:"rgba(168,85,247,.17)"},
+        blue:{accent:"#60a5fa",ink:"#f7fbff",gradient:"linear-gradient(115deg,#60a5fa 0%,#3b82f6 52%,#1d4ed8 100%)",soft:"rgba(59,130,246,.17)"}
+      };
+      function applyMawjTheme(name,persist=true){
+        const key=Object.prototype.hasOwnProperty.call(mawThemes,name)?name:"default";
+        const t=mawThemes[key],root=document.documentElement;
+        root.style.setProperty("--accent",t.accent);
+        root.style.setProperty("--accent-ink",t.ink);
+        root.style.setProperty("--accent-gradient",t.gradient);
+        root.style.setProperty("--accent-soft",t.soft);
+        root.dataset.mawjTheme=key;
+        if(themeSelect)themeSelect.value=key;
+        if(persist){try{localStorage.setItem("mawj-theme",key)}catch{}}
+      }
+      applyMawjTheme((()=>{try{return localStorage.getItem("mawj-theme")||"default"}catch{return"default"}})(),false);
+      themeSelect?.addEventListener("change",e=>applyMawjTheme(e.target.value));
+
       const dbOpen=()=>new Promise((resolve,reject)=>{const req=indexedDB.open("mawj-library",1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains("media"))db.createObjectStore("media",{keyPath:"id"});if(!db.objectStoreNames.contains("playlists"))db.createObjectStore("playlists",{keyPath:"id"});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
       const reqResult=req=>new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
       const txDone=tx=>new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});
