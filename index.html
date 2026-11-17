@@ -47,7 +47,7 @@
     .theme-toggle:active{transform:scale(.94)}
     .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
     @media(max-width:700px){.theme-toggle{width:31px;height:31px;min-width:31px}.top-actions{gap:6px}}
-  @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
+  .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}.cloud-backup{display:grid;gap:9px;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.cloud-backup-title{margin:0;color:var(--text);font-size:12px;font-weight:600}.cloud-backup-copy{margin:0!important;font-size:11px!important}.cloud-key-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.cloud-key-row .field{min-width:0;font-size:11px;direction:ltr;text-align:left}.cloud-key-actions{display:flex;gap:7px}.cloud-key-actions button{flex:1}.cloud-status{min-height:16px;color:var(--muted);font-size:10px;line-height:1.6}.cloud-backup .backup-actions{margin-top:2px}@media(max-width:440px){.cloud-key-row{grid-template-columns:1fr}.cloud-key-actions{display:grid;grid-template-columns:1fr 1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
 </head>
 <body>
   <div class="app" id="app">
@@ -63,7 +63,7 @@
       <div class="local-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 5 6v5c0 4.6 2.8 8.4 7 10 4.2-1.6 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span><b>خصوصيتك محفوظة</b> ملفاتك تبقى على هذا الجهاز.</span></div>
     </aside>
     <main class="main">
-      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><div class="theme-control"><button class="theme-toggle" id="themeToggle" type="button" aria-label="تغيير ألوان موج" title="تغيير ألوان موج"></button></div><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
+      <div class="topbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.3 4.3"/></svg><input id="searchInput" type="search" placeholder="ابحث في مكتبتك" aria-label="ابحث في مكتبتك" /></label><div class="top-actions"><button class="icon-button backup-trigger" id="backupOpen" type="button" title="النسخ الاحتياطي" aria-label="النسخ الاحتياطي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7.5h16v12H4zM8 7.5V4h8v3.5M8 12h8M8 16h5"/></svg></button><div class="theme-control"><button class="theme-toggle" id="themeToggle" type="button" aria-label="تغيير ألوان موج" title="تغيير ألوان موج"></button></div><button class="primary-button" id="addFiles" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>إضافة ملفات</button></div></div>
       <div class="heading-row"><div><p class="eyebrow" id="pageEyebrow">مساحتك الخاصة</p><h1 class="page-title" id="pageTitle">كل ملفاتك</h1><p class="page-subtitle" id="pageSubtitle">مكتبتك المحلية، مرتبة على إيقاعك.</p></div><span class="view-count" id="viewCount">0 ملف</span></div>
       <div class="mobile-playlists"><select class="playlist-switch" id="mobilePlaylistSelect" aria-label="اختيار قائمة تشغيل"><option value="all">كل الملفات</option></select><button class="icon-button" id="mobileNewPlaylist" type="button" aria-label="إنشاء قائمة تشغيل" title="قائمة تشغيل جديدة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button></div>
       <section class="hero-player" aria-label="مشغل موج"><div class="hero-copy"><p class="eyebrow" id="heroEyebrow">ابدأ من هنا</p><h2 id="heroTitle">صوتك يبدأ من مكتبتك.</h2><p id="heroText">أضف أغانيك أو فيديوهاتك، واجمعها في قوائم تناسب لحظتك. لا تُرفع ملفاتك إلى أي مكان.</p><button class="primary-button" id="heroAction" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>أضف أول ملف</button></div><div class="hero-art" aria-hidden="true"><span class="orbit"></span><img src="/assets/mawj/mawj-mark.svg" alt="" /></div></section>
@@ -77,6 +77,7 @@
   <input id="fileInput" class="hidden" type="file" multiple /><input id="thumbnailInput" class="hidden" type="file" accept="image/*" />
   <div class="dialog-backdrop" id="playlistDialog" aria-hidden="true"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><h2 id="dialogTitle">قائمة تشغيل جديدة</h2><p>اجمع الملفات التي تناسب لحظتك في قائمة خاصة.</p><label class="field-label" for="playlistName">اسم القائمة</label><input class="field" id="playlistName" maxlength="48" placeholder="مثال: مشوار المساء" /><span class="field-label" style="margin-top:14px">نوع القائمة</span><div class="choice-row"><button class="choice active" type="button" data-kind="audio">أغاني</button><button class="choice" type="button" data-kind="video">فيديوهات</button></div><div class="dialog-actions"><button class="primary-button" id="savePlaylist" type="button">إنشاء القائمة</button><button class="secondary-button" id="cancelPlaylist" type="button">إلغاء</button></div></section></div>
   <div class="dialog-backdrop" id="addToPlaylistDialog" aria-hidden="true"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="addDialogTitle"><h2 id="addDialogTitle">إضافة إلى قائمة</h2><p id="addDialogSubtitle">اختر القائمة المناسبة.</p><label class="field-label" for="playlistSelect">قائمة التشغيل</label><select class="field" id="playlistSelect"></select><div class="dialog-actions"><button class="primary-button" id="confirmAdd" type="button">إضافة</button><button class="secondary-button" id="cancelAdd" type="button">إلغاء</button></div></section></div>
+  <div class="dialog-backdrop" id="backupDialog" aria-hidden="true"><section class="dialog backup-dialog" role="dialog" aria-modal="true" aria-labelledby="backupTitle"><h2 id="backupTitle">نسخة احتياطية لموج</h2><p>احفظ تنظيم مكتبتك واستعده لاحقًا، حتى لو غيّرت الدومين أو المتصفح.</p><div class="cloud-backup"><h3 class="cloud-backup-title">نسخة سحابية مشفّرة</h3><p class="cloud-backup-copy">احفظ ترتيب مكتبتك على سحابة موج واستعده من أي جهاز. بيانات النسخة تُشفّر في متصفحك قبل إرسالها.</p><label class="field-label" for="cloudBackupKey">رمز الاستعادة الخاص بك</label><input class="field" id="cloudBackupKey" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="أنشئ رمزًا أو أدخل رمزك الحالي" /><div class="cloud-key-actions"><button class="secondary-button" id="cloudBackupGenerate" type="button">إنشاء رمز جديد</button><button class="secondary-button" id="cloudBackupCopy" type="button">نسخ الرمز</button></div><div class="backup-actions"><button class="primary-button" id="cloudBackupSave" type="button">حفظ في السحابة</button><button class="secondary-button" id="cloudBackupRestore" type="button">استعادة من السحابة</button></div><div class="cloud-status" id="cloudBackupStatus" role="status" aria-live="polite">لا توجد عملية سحابية بعد.</div><div class="backup-note">احتفظ برمز الاستعادة في مكان آمن. لن نستطيع استعادة النسخة بدونه. إذا أنشأت رمزًا جديدًا فسيشير إلى نسخة سحابية جديدة. لا تُرفع ملفات الصوت أو الفيديو نفسها.</div></div><div class="backup-actions"><button class="primary-button" id="exportBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></svg>تنزيل نسخة JSON</button><button class="secondary-button" id="importBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/></svg>استعادة ملف JSON</button></div><input id="backupInput" class="hidden" type="file" accept=".json,application/json" /><div class="backup-note">النسخة المحلية تحفظ <strong>قوائم التشغيل وترتيب الملفات وإعدادات موج</strong> فقط. عند الانتقال لدومين جديد، أضف ملفاتك إلى المكتبة أولًا ثم استعد النسخة. ملفات الوسائط نفسها تظل على جهازك.</div><div class="dialog-actions"><button class="secondary-button" id="closeBackup" type="button">إغلاق</button></div></section></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <audio id="audioEngine" preload="metadata"></audio>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -176,8 +177,111 @@
       function openAddDialog(id){const item=state.items.find(x=>x.id===id);if(!item||item.kind==="pdf"||item.kind==="text")return;state.pendingAdd=id;const choices=state.playlists.filter(p=>p.kind===item.kind);$("#playlistSelect").innerHTML=choices.length?choices.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join(""):'<option value="">لا توجد قائمة لهذا النوع</option>';$("#confirmAdd").disabled=!choices.length;$("#addDialogSubtitle").textContent=`إضافة «${item.name}» إلى قائمة ${item.kind==="audio"?"أغاني":"فيديوهات"}.`;$("#addToPlaylistDialog").classList.add("open");$("#addToPlaylistDialog").setAttribute("aria-hidden","false")}
       async function confirmAdd(){const p=state.playlists.find(x=>x.id===$("#playlistSelect").value);if(!p||!state.pendingAdd)return;if(!p.itemIds.includes(state.pendingAdd))p.itemIds.push(state.pendingAdd);await save("playlists",p);closeDialog("#addToPlaylistDialog");render();toast("أُضيف الملف إلى قائمتك")}
 
+      function createBackupPayload(){
+        const media=state.items.map(({id,name,kind,size,mime,addedAt})=>({id,name,kind,size,mime,addedAt}));
+        const playlists=state.playlists.map(p=>({id:p.id,name:p.name,kind:p.kind,itemIds:[...(p.itemIds||[])],createdAt:p.createdAt}));
+        const readPref=(key,fallback)=>{try{return localStorage.getItem(key)??fallback}catch{return fallback}};
+        return {app:"MAWJ",format:"mawj-library-backup",version:1,createdAt:new Date().toISOString(),media,playlists,preferences:{theme:readPref("mawj-theme","default"),viewMode:state.viewMode||"list",sidebarCollapsed:readPref("mawj-sidebar-collapsed","0")==="1",playlistsCollapsed:readPref("mawj-playlists-collapsed","0")==="1"}};
+      }
+      function exportMawjBackup(){
+        try{
+          const payload=createBackupPayload(),blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+          const url=URL.createObjectURL(blob),link=document.createElement("a");
+          link.href=url;link.download="mawj-backup-"+new Date().toISOString().slice(0,10)+".json";
+          document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);
+          try{localStorage.setItem("mawj-backup-last-export",String(Date.now()))}catch{}
+          closeDialog("#backupDialog");toast("تم تنزيل النسخة الاحتياطية بنجاح");
+        }catch(error){console.error("MAWJ backup export failed",error);toast("تعذر إنشاء النسخة الاحتياطية")}
+      }
+
+      function setCloudBackupStatus(message){const el=$("#cloudBackupStatus");if(el)el.textContent=message}
+      function encodeBase64Url(bytes){let binary="";for(const byte of bytes)binary+=String.fromCharCode(byte);return btoa(binary).replaceAll("+","-").replaceAll("/","_").replace(/=+$/,"")}
+      function decodeBase64Url(value){const normalized=value.replaceAll("-","+").replaceAll("_","/");const binary=atob(normalized+"=".repeat((4-normalized.length%4)%4));return Uint8Array.from(binary,c=>c.charCodeAt(0))}
+      function createCloudBackupKey(){return encodeBase64Url(crypto.getRandomValues(new Uint8Array(32)))}
+      async function cloudAesKey(secret){const raw=decodeBase64Url(secret);if(raw.length!==32)throw new Error("رمز الاستعادة غير صالح");return crypto.subtle.importKey("raw",raw,{name:"AES-GCM"},false,["encrypt","decrypt"])}
+      async function encryptCloudBackup(data,secret){const key=await cloudAesKey(secret),iv=crypto.getRandomValues(new Uint8Array(12)),plain=new TextEncoder().encode(JSON.stringify(data)),cipher=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,plain);return{iv:encodeBase64Url(iv),ciphertext:encodeBase64Url(new Uint8Array(cipher))}}
+      async function decryptCloudBackup(encrypted,secret){const key=await cloudAesKey(secret),iv=decodeBase64Url(encrypted.iv),cipher=decodeBase64Url(encrypted.ciphertext);if(iv.length!==12)throw new Error("بيانات النسخة السحابية غير صالحة");const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv},key,cipher);return JSON.parse(new TextDecoder().decode(plain))}
+      async function saveCloudMawjBackup(){
+        const button=$("#cloudBackupSave");button.disabled=true;setCloudBackupStatus("جارٍ تشفير النسخة وحفظها...");
+        try{
+          let secret=$("#cloudBackupKey").value.trim();if(!secret){secret=createCloudBackupKey();$("#cloudBackupKey").value=secret}
+          await cloudAesKey(secret);try{localStorage.setItem("mawj-cloud-backup-key",secret)}catch{}
+          const payload=await encryptCloudBackup(createBackupPayload(),secret);
+          const response=await fetch("/api/mawj-backup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"save",key:secret,payload})});
+          const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||"تعذر الاتصال بخدمة النسخ السحابي");
+          try{localStorage.setItem("mawj-backup-last-cloud-save",String(Date.now()))}catch{}
+          const savedAt=new Date(result.savedAt||Date.now()).toLocaleString("ar-EG");setCloudBackupStatus("آخر نسخة سحابية محفوظة: "+savedAt);toast("تم حفظ نسخة موج السحابية بنجاح");
+        }catch(error){console.error("MAWJ cloud backup save failed",error);setCloudBackupStatus(error.message||"تعذر حفظ النسخة السحابية");toast("تعذر حفظ النسخة السحابية")}
+        finally{button.disabled=false}
+      }
+      async function restoreCloudMawjBackup(){
+        const button=$("#cloudBackupRestore");button.disabled=true;setCloudBackupStatus("جارٍ البحث عن النسخة السحابية...");
+        try{
+          const secret=$("#cloudBackupKey").value.trim();if(!secret)throw new Error("أدخل رمز الاستعادة أولًا");
+          await cloudAesKey(secret);
+          const response=await fetch("/api/mawj-backup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"load",key:secret})});
+          const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||"لم يتم العثور على نسخة بهذا الرمز");
+          const backup=await decryptCloudBackup(result.payload,secret);
+          await applyMawjBackup(backup);try{localStorage.setItem("mawj-cloud-backup-key",secret)}catch{}
+          setCloudBackupStatus("تمت استعادة النسخة السحابية بنجاح.");
+        }catch(error){console.error("MAWJ cloud backup restore failed",error);setCloudBackupStatus(error.message||"تعذرت استعادة النسخة");toast(error.message||"تعذرت استعادة النسخة السحابية")}
+        finally{button.disabled=false}
+      }
+
+      async function importMawjBackup(file){
+        try{await applyMawjBackup(JSON.parse(await file.text()))}
+        catch(error){console.error("MAWJ backup import failed",error);toast(error.message==="ملف النسخة غير صالح أو غير مدعوم"?error.message:"تعذر استيراد النسخة الاحتياطية")}
+      }
+      async function applyMawjBackup(backup){
+        try{
+          if(backup?.app!=="MAWJ"||backup?.format!=="mawj-library-backup"||backup?.version!==1||!Array.isArray(backup.media)||!Array.isArray(backup.playlists))throw new Error("ملف النسخة غير صالح أو غير مدعوم");
+          const byId=new Map(state.items.map(item=>[item.id,item.id])),used=new Set(),buckets=new Map();
+          const signature=item=>JSON.stringify([item.name||"",Number(item.size)||0,item.kind||""]);
+          for(const item of state.items){const key=signature(item);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(item.id)}
+          const idMap=new Map();let matched=0;
+          for(const source of backup.media){
+            let target=byId.has(source.id)&&!used.has(source.id)?source.id:null;
+            if(!target){const candidates=buckets.get(signature(source))||[];target=candidates.find(id=>!used.has(id))||null}
+            if(target){idMap.set(source.id,target);used.add(target);matched++}
+          }
+          let restoredLists=0,missingItems=0;
+          for(const source of backup.playlists){
+            if(!source||typeof source.name!=="string"||!Array.isArray(source.itemIds))continue;
+            const itemIds=source.itemIds.map(id=>idMap.get(id)).filter(Boolean);
+            missingItems+=source.itemIds.length-itemIds.length;
+            const id=typeof source.id==="string"&&source.id?source.id:makeId();
+            const restored={id,name:source.name.slice(0,48),kind:source.kind==="video"?"video":"audio",itemIds:[...new Set(itemIds)],createdAt:Number(source.createdAt)||Date.now()};
+            await save("playlists",restored);
+            const existing=state.playlists.findIndex(p=>p.id===id);
+            if(existing>=0)state.playlists[existing]=restored;else state.playlists.push(restored);
+            restoredLists++;
+          }
+          const prefs=backup.preferences||{};
+          if(["default","red","purple","blue"].includes(prefs.theme))applyMawjTheme(prefs.theme);
+          if(["list","grid"].includes(prefs.viewMode)){state.viewMode=prefs.viewMode;try{localStorage.setItem("mawj-view-mode",state.viewMode)}catch{}}
+          const appRoot=$("#app"),rightPanel=$(".right-panel");
+          if(typeof prefs.sidebarCollapsed==="boolean"){appRoot.classList.toggle("sidebar-collapsed",prefs.sidebarCollapsed);try{localStorage.setItem("mawj-sidebar-collapsed",prefs.sidebarCollapsed?"1":"0")}catch{}$("#sidebarRestoreLogo").setAttribute("aria-label",prefs.sidebarCollapsed?"فتح القائمة":"شعار موج");$("#sidebarCollapse").setAttribute("aria-label",prefs.sidebarCollapsed?"توسيع القائمة":"طي القائمة")}
+          if(typeof prefs.playlistsCollapsed==="boolean"){rightPanel.classList.toggle("playlists-collapsed",prefs.playlistsCollapsed);try{localStorage.setItem("mawj-playlists-collapsed",prefs.playlistsCollapsed?"1":"0")}catch{}$("#playlistCollapse").setAttribute("aria-label",prefs.playlistsCollapsed?"إظهار قوائم التشغيل":"طي قوائم التشغيل")}
+          state.activePlaylist=null;state.filter="all";state.queue=[];state.search="";$("#searchInput").value="";
+          state.playlists.sort((a,b)=>b.createdAt-a.createdAt);render();closeDialog("#backupDialog");
+          const note=missingItems?(" · "+missingItems+" عنصر لم يُطابق بملف موجود"):"";
+          toast("استُعيدت "+restoredLists+" قائمة · تمت مطابقة "+matched+" ملف"+note);
+        }catch(error){console.error("MAWJ backup import failed",error);throw error}
+      }
+
       function bind(){
         $("#addFiles").onclick=()=>$("#fileInput").click();
+        $("#backupOpen").onclick=()=>{$("#backupDialog").classList.add("open");$("#backupDialog").setAttribute("aria-hidden","false")};
+        $("#closeBackup").onclick=()=>closeDialog("#backupDialog");
+        $("#exportBackup").onclick=exportMawjBackup;
+        $("#importBackup").onclick=()=>$("#backupInput").click();
+        $("#backupInput").addEventListener("change",async e=>{const file=e.target.files?.[0];e.target.value="";if(file)await importMawjBackup(file)});
+        try{$("#cloudBackupKey").value=localStorage.getItem("mawj-cloud-backup-key")||""}catch{}
+        $("#cloudBackupGenerate").onclick=()=>{const key=createCloudBackupKey();$("#cloudBackupKey").value=key;try{localStorage.setItem("mawj-cloud-backup-key",key)}catch{};setCloudBackupStatus("تم إنشاء رمز جديد. انسخه واحتفظ به قبل المتابعة.")};
+        $("#cloudBackupCopy").onclick=async()=>{let key=$("#cloudBackupKey").value.trim();if(!key){key=createCloudBackupKey();$("#cloudBackupKey").value=key;try{localStorage.setItem("mawj-cloud-backup-key",key)}catch{}}try{await navigator.clipboard.writeText(key);setCloudBackupStatus("تم نسخ رمز الاستعادة. احتفظ به في مكان آمن.");toast("تم نسخ رمز الاستعادة")}catch{setCloudBackupStatus("تعذر النسخ تلقائيًا. حدّد الرمز وانسخه يدويًا.")}};
+        $("#cloudBackupSave").onclick=saveCloudMawjBackup;
+        $("#cloudBackupRestore").onclick=restoreCloudMawjBackup;
+        $("#backupDialog").addEventListener("click",e=>{if(e.target===e.currentTarget)closeDialog("#backupDialog")});
         const appRoot=$("#app"),sidebarRestore=$("#sidebarRestoreLogo"),sidebarCollapse=$("#sidebarCollapse"),playlistPanel=$(".right-panel"),playlistCollapse=$("#playlistCollapse");
         const setSidebarCollapsed=collapsed=>{appRoot.classList.toggle("sidebar-collapsed",collapsed);localStorage.setItem("mawj-sidebar-collapsed",collapsed?"1":"0");sidebarRestore.title=collapsed?"فتح القائمة":"شعار موج";sidebarCollapse.title=collapsed?"توسيع القائمة":"طي القائمة";sidebarRestore.setAttribute("aria-label",collapsed?"فتح القائمة":"شعار موج");sidebarCollapse.setAttribute("aria-label",collapsed?"توسيع القائمة":"طي القائمة")};
         setSidebarCollapsed(localStorage.getItem("mawj-sidebar-collapsed")==="1");sidebarRestore.onclick=()=>setSidebarCollapsed(false);sidebarCollapse.onclick=()=>setSidebarCollapsed(true);
@@ -189,9 +293,18 @@
         $("#pdfFullscreen").onclick=async()=>{const stage=$("#pdfStage");try{if(document.fullscreenElement){await document.exitFullscreen()}else if(stage.requestFullscreen){await stage.requestFullscreen()}else if(stage.webkitRequestFullscreen){stage.webkitRequestFullscreen()}else{toast("ملء الشاشة غير مدعوم في هذا المتصفح")}}catch(e){toast("تعذر فتح المستند بملء الشاشة")}};$("#playPause").onclick=()=>{const item=state.items.find(x=>x.id===state.currentId);if(!item){playFirst();return}if(item.kind==="pdf"||item.kind==="text")return;const e=item.kind==="video"?$("#videoEngine"):$("#audioEngine");if(e.paused)e.play().catch(()=>toast("تعذر تشغيل هذا الملف"));else e.pause();renderPlayer()};$("#previous").onclick=()=>step(-1);$("#next").onclick=()=>step(1);$("#shuffle").onclick=()=>{state.shuffle=!state.shuffle;renderPlayer()};$("#repeat").onclick=()=>{state.repeatMode=state.repeatMode==="off"?"all":state.repeatMode==="all"?"one":"off";renderPlayer()};
         [$("#audioEngine"),$("#videoEngine")].forEach(engine=>{engine.addEventListener("timeupdate",()=>{if((state.currentKind==="video"?engine===$("#videoEngine"):engine===$("#audioEngine"))){const progressValue=engine.duration?Math.round(engine.currentTime/engine.duration*1000):0;$("#progress").value=progressValue;$("#progress").style.setProperty("--progress",`${progressValue/10}%`);$("#elapsed").textContent=formatTime(engine.currentTime);$("#duration").textContent=formatTime(engine.duration)}});engine.addEventListener("play",()=>{renderPlayer();activateWaveform(engine)});engine.addEventListener("pause",()=>{renderPlayer();drawWaveform()});engine.addEventListener("ended",()=>{if(engine===(state.currentKind==="video"?$("#videoEngine"):$("#audioEngine"))&&state.repeatMode==="one"){engine.currentTime=0;engine.play().catch(()=>toast("تعذر تكرار هذا المقطع"))}else step(1)})});
         $("#progress").addEventListener("input",e=>{const engine=state.currentKind==="video"?$("#videoEngine"):$("#audioEngine");e.target.style.setProperty("--progress",`${Number(e.target.value)/10}%`);if(engine.duration)engine.currentTime=engine.duration*Number(e.target.value)/1000});$("#volume").addEventListener("input",e=>{$("#audioEngine").volume=Number(e.target.value);$("#videoEngine").volume=Number(e.target.value)});
-        const area=$("#app");["dragenter","dragover"].forEach(t=>area.addEventListener(t,e=>{e.preventDefault();area.classList.add("drop-active")}));["dragleave","drop"].forEach(t=>area.addEventListener(t,e=>{e.preventDefault();if(t==="drop"||!area.contains(e.relatedTarget))area.classList.remove("drop-active")}));area.addEventListener("drop",e=>importFiles([...e.dataTransfer.files]));document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDialog("#playlistDialog");closeDialog("#addToPlaylistDialog")}if((e.code==="Space"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))){e.preventDefault();$("#playPause").click()}});
+        const area=$("#app");["dragenter","dragover"].forEach(t=>area.addEventListener(t,e=>{e.preventDefault();area.classList.add("drop-active")}));["dragleave","drop"].forEach(t=>area.addEventListener(t,e=>{e.preventDefault();if(t==="drop"||!area.contains(e.relatedTarget))area.classList.remove("drop-active")}));area.addEventListener("drop",e=>importFiles([...e.dataTransfer.files]));document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDialog("#playlistDialog");closeDialog("#addToPlaylistDialog");closeDialog("#backupDialog")}if((e.code==="Space"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))){e.preventDefault();$("#playPause").click()}});
       }
-      async function init(){let stage="فتح قاعدة البيانات المحلية";try{state.db=await dbOpen();stage="قراءة الملفات المحفوظة";state.items=(await getAll("media")).map(({blob,...item})=>item).sort((a,b)=>b.addedAt-a.addedAt);state.playlists=(await getAll("playlists")).sort((a,b)=>b.createdAt-a.createdAt);stage="ربط عناصر الواجهة";bind();stage="عرض المكتبة";render();drawWaveform()}catch(err){console.error("MAWJ startup failed at: "+stage,err);const panel=document.createElement("main");panel.dir="rtl";panel.style.cssText="padding:28px;max-width:760px;margin:40px auto;font-family:system-ui;color:var(--text,#fff);background:var(--panel,#211f1a);border:1px solid var(--line,#514b40);border-radius:16px";panel.innerHTML='<h2 style="margin-top:0">تعذر تهيئة موج</h2><p>المرحلة: '+stage+'</p><p>التفاصيل: '+String(err?.name||"Error")+' · '+String(err?.message||err)+'</p><p>لم نحذف أي ملفات أو بيانات محلية.</p><button id="mawjRetry" style="padding:10px 16px;border-radius:10px;cursor:pointer">إعادة المحاولة</button>';document.body.replaceChildren(panel);panel.querySelector("#mawjRetry").onclick=()=>location.reload()}}
+      function maybeRemindBackup(){
+        try{
+          const now=Date.now(),firstKey="mawj-first-seen",lastKey="mawj-backup-last-export",reminderKey="mawj-backup-last-reminder";
+          let first=Number(localStorage.getItem(firstKey)||0);if(!first){first=now;localStorage.setItem(firstKey,String(first))}
+          const last=Number(localStorage.getItem(lastKey)||0),reminded=Number(localStorage.getItem(reminderKey)||0);
+          const due=last?now-last>30*24*60*60*1000:now-first>14*24*60*60*1000;
+          if(due&&now-reminded>7*24*60*60*1000){localStorage.setItem(reminderKey,String(now));setTimeout(()=>toast("تذكير لطيف: اعمل نسخة احتياطية لتنظيم مكتبتك من زر النسخ الاحتياطي"),1800)}
+        }catch{}
+      }
+      async function init(){let stage="فتح قاعدة البيانات المحلية";try{state.db=await dbOpen();stage="قراءة الملفات المحفوظة";state.items=(await getAll("media")).map(({blob,...item})=>item).sort((a,b)=>b.addedAt-a.addedAt);state.playlists=(await getAll("playlists")).sort((a,b)=>b.createdAt-a.createdAt);stage="ربط عناصر الواجهة";bind();stage="عرض المكتبة";render();drawWaveform();maybeRemindBackup()}catch(err){console.error("MAWJ startup failed at: "+stage,err);const panel=document.createElement("main");panel.dir="rtl";panel.style.cssText="padding:28px;max-width:760px;margin:40px auto;font-family:system-ui;color:var(--text,#fff);background:var(--panel,#211f1a);border:1px solid var(--line,#514b40);border-radius:16px";panel.innerHTML='<h2 style="margin-top:0">تعذر تهيئة موج</h2><p>المرحلة: '+stage+'</p><p>التفاصيل: '+String(err?.name||"Error")+' · '+String(err?.message||err)+'</p><p>لم نحذف أي ملفات أو بيانات محلية.</p><button id="mawjRetry" style="padding:10px 16px;border-radius:10px;cursor:pointer">إعادة المحاولة</button>';document.body.replaceChildren(panel);panel.querySelector("#mawjRetry").onclick=()=>location.reload()}}
       window.addEventListener("beforeunload",()=>{state.urls.forEach(url=>URL.revokeObjectURL(url));state.thumbUrls.forEach(url=>URL.revokeObjectURL(url))});init();
     })();
   </script>
