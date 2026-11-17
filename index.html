@@ -47,7 +47,7 @@
     .theme-toggle:active{transform:scale(.94)}
     .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
     @media(max-width:700px){.theme-toggle{width:31px;height:31px;min-width:31px}.top-actions{gap:6px}}
-  .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
+  .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}.cloud-backup{display:grid;gap:9px;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.cloud-backup-title{margin:0;color:var(--text);font-size:12px;font-weight:600}.cloud-backup-copy{margin:0!important;font-size:11px!important}.cloud-key-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.cloud-key-row .field{min-width:0;font-size:11px;direction:ltr;text-align:left}.cloud-key-actions{display:flex;gap:7px}.cloud-key-actions button{flex:1}.cloud-status{min-height:16px;color:var(--muted);font-size:10px;line-height:1.6}.cloud-backup .backup-actions{margin-top:2px}@media(max-width:440px){.cloud-key-row{grid-template-columns:1fr}.cloud-key-actions{display:grid;grid-template-columns:1fr 1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n</style>
 </head>
 <body>
   <div class="app" id="app">
@@ -77,7 +77,7 @@
   <input id="fileInput" class="hidden" type="file" multiple /><input id="thumbnailInput" class="hidden" type="file" accept="image/*" />
   <div class="dialog-backdrop" id="playlistDialog" aria-hidden="true"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><h2 id="dialogTitle">قائمة تشغيل جديدة</h2><p>اجمع الملفات التي تناسب لحظتك في قائمة خاصة.</p><label class="field-label" for="playlistName">اسم القائمة</label><input class="field" id="playlistName" maxlength="48" placeholder="مثال: مشوار المساء" /><span class="field-label" style="margin-top:14px">نوع القائمة</span><div class="choice-row"><button class="choice active" type="button" data-kind="audio">أغاني</button><button class="choice" type="button" data-kind="video">فيديوهات</button></div><div class="dialog-actions"><button class="primary-button" id="savePlaylist" type="button">إنشاء القائمة</button><button class="secondary-button" id="cancelPlaylist" type="button">إلغاء</button></div></section></div>
   <div class="dialog-backdrop" id="addToPlaylistDialog" aria-hidden="true"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="addDialogTitle"><h2 id="addDialogTitle">إضافة إلى قائمة</h2><p id="addDialogSubtitle">اختر القائمة المناسبة.</p><label class="field-label" for="playlistSelect">قائمة التشغيل</label><select class="field" id="playlistSelect"></select><div class="dialog-actions"><button class="primary-button" id="confirmAdd" type="button">إضافة</button><button class="secondary-button" id="cancelAdd" type="button">إلغاء</button></div></section></div>
-  <div class="dialog-backdrop" id="backupDialog" aria-hidden="true"><section class="dialog backup-dialog" role="dialog" aria-modal="true" aria-labelledby="backupTitle"><h2 id="backupTitle">نسخة احتياطية لموج</h2><p>احفظ تنظيم مكتبتك واستعده لاحقًا، حتى لو غيّرت الدومين أو المتصفح.</p><div class="backup-actions"><button class="primary-button" id="exportBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></svg>تنزيل نسخة احتياطية</button><button class="secondary-button" id="importBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/></svg>استعادة نسخة</button></div><input id="backupInput" class="hidden" type="file" accept=".json,application/json" /><div class="backup-note">النسخة تحفظ <strong>قوائم التشغيل وترتيب الملفات وإعدادات موج</strong> فقط. ملفات الوسائط نفسها تظل على جهازك ولا تُرفع أو تُضمّن في ملف النسخة. عند الانتقال لدومين جديد، أضف ملفاتك إلى المكتبة أولًا ثم استعد النسخة.</div><div class="dialog-actions"><button class="secondary-button" id="closeBackup" type="button">إغلاق</button></div></section></div>
+  <div class="dialog-backdrop" id="backupDialog" aria-hidden="true"><section class="dialog backup-dialog" role="dialog" aria-modal="true" aria-labelledby="backupTitle"><h2 id="backupTitle">نسخة احتياطية لموج</h2><p>احفظ تنظيم مكتبتك واستعده لاحقًا، حتى لو غيّرت الدومين أو المتصفح.</p><div class="cloud-backup"><h3 class="cloud-backup-title">نسخة سحابية مشفّرة</h3><p class="cloud-backup-copy">احفظ ترتيب مكتبتك على سحابة موج واستعده من أي جهاز. بيانات النسخة تُشفّر في متصفحك قبل إرسالها.</p><label class="field-label" for="cloudBackupKey">رمز الاستعادة الخاص بك</label><input class="field" id="cloudBackupKey" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="أنشئ رمزًا أو أدخل رمزك الحالي" /><div class="cloud-key-actions"><button class="secondary-button" id="cloudBackupGenerate" type="button">إنشاء رمز جديد</button><button class="secondary-button" id="cloudBackupCopy" type="button">نسخ الرمز</button></div><div class="backup-actions"><button class="primary-button" id="cloudBackupSave" type="button">حفظ في السحابة</button><button class="secondary-button" id="cloudBackupRestore" type="button">استعادة من السحابة</button></div><div class="cloud-status" id="cloudBackupStatus" role="status" aria-live="polite">لا توجد عملية سحابية بعد.</div><div class="backup-note">احتفظ برمز الاستعادة في مكان آمن. لن نستطيع استعادة النسخة بدونه. إذا أنشأت رمزًا جديدًا فسيشير إلى نسخة سحابية جديدة. لا تُرفع ملفات الصوت أو الفيديو نفسها.</div></div><div class="backup-actions"><button class="primary-button" id="exportBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/></svg>تنزيل نسخة JSON</button><button class="secondary-button" id="importBackup" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m-5 5 5-5 5 5M4 17v4h16v-4"/></svg>استعادة ملف JSON</button></div><input id="backupInput" class="hidden" type="file" accept=".json,application/json" /><div class="backup-note">النسخة المحلية تحفظ <strong>قوائم التشغيل وترتيب الملفات وإعدادات موج</strong> فقط. عند الانتقال لدومين جديد، أضف ملفاتك إلى المكتبة أولًا ثم استعد النسخة. ملفات الوسائط نفسها تظل على جهازك.</div><div class="dialog-actions"><button class="secondary-button" id="closeBackup" type="button">إغلاق</button></div></section></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <audio id="audioEngine" preload="metadata"></audio>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -193,9 +193,47 @@
           closeDialog("#backupDialog");toast("تم تنزيل النسخة الاحتياطية بنجاح");
         }catch(error){console.error("MAWJ backup export failed",error);toast("تعذر إنشاء النسخة الاحتياطية")}
       }
-      async function importMawjBackup(file){
+
+      function setCloudBackupStatus(message){const el=$("#cloudBackupStatus");if(el)el.textContent=message}
+      function encodeBase64Url(bytes){let binary="";for(const byte of bytes)binary+=String.fromCharCode(byte);return btoa(binary).replaceAll("+","-").replaceAll("/","_").replace(/=+$/,"")}
+      function decodeBase64Url(value){const normalized=value.replaceAll("-","+").replaceAll("_","/");const binary=atob(normalized+"=".repeat((4-normalized.length%4)%4));return Uint8Array.from(binary,c=>c.charCodeAt(0))}
+      function createCloudBackupKey(){return encodeBase64Url(crypto.getRandomValues(new Uint8Array(32)))}
+      async function cloudAesKey(secret){const raw=decodeBase64Url(secret);if(raw.length!==32)throw new Error("رمز الاستعادة غير صالح");return crypto.subtle.importKey("raw",raw,{name:"AES-GCM"},false,["encrypt","decrypt"])}
+      async function encryptCloudBackup(data,secret){const key=await cloudAesKey(secret),iv=crypto.getRandomValues(new Uint8Array(12)),plain=new TextEncoder().encode(JSON.stringify(data)),cipher=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,plain);return{iv:encodeBase64Url(iv),ciphertext:encodeBase64Url(new Uint8Array(cipher))}}
+      async function decryptCloudBackup(encrypted,secret){const key=await cloudAesKey(secret),iv=decodeBase64Url(encrypted.iv),cipher=decodeBase64Url(encrypted.ciphertext);if(iv.length!==12)throw new Error("بيانات النسخة السحابية غير صالحة");const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv},key,cipher);return JSON.parse(new TextDecoder().decode(plain))}
+      async function saveCloudMawjBackup(){
+        const button=$("#cloudBackupSave");button.disabled=true;setCloudBackupStatus("جارٍ تشفير النسخة وحفظها...");
         try{
-          const backup=JSON.parse(await file.text());
+          let secret=$("#cloudBackupKey").value.trim();if(!secret){secret=createCloudBackupKey();$("#cloudBackupKey").value=secret}
+          await cloudAesKey(secret);try{localStorage.setItem("mawj-cloud-backup-key",secret)}catch{}
+          const payload=await encryptCloudBackup(createBackupPayload(),secret);
+          const response=await fetch("/api/mawj-backup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"save",key:secret,payload})});
+          const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||"تعذر الاتصال بخدمة النسخ السحابي");
+          try{localStorage.setItem("mawj-backup-last-cloud-save",String(Date.now()))}catch{}
+          const savedAt=new Date(result.savedAt||Date.now()).toLocaleString("ar-EG");setCloudBackupStatus("آخر نسخة سحابية محفوظة: "+savedAt);toast("تم حفظ نسخة موج السحابية بنجاح");
+        }catch(error){console.error("MAWJ cloud backup save failed",error);setCloudBackupStatus(error.message||"تعذر حفظ النسخة السحابية");toast("تعذر حفظ النسخة السحابية")}
+        finally{button.disabled=false}
+      }
+      async function restoreCloudMawjBackup(){
+        const button=$("#cloudBackupRestore");button.disabled=true;setCloudBackupStatus("جارٍ البحث عن النسخة السحابية...");
+        try{
+          const secret=$("#cloudBackupKey").value.trim();if(!secret)throw new Error("أدخل رمز الاستعادة أولًا");
+          await cloudAesKey(secret);
+          const response=await fetch("/api/mawj-backup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"load",key:secret})});
+          const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||"لم يتم العثور على نسخة بهذا الرمز");
+          const backup=await decryptCloudBackup(result.payload,secret);
+          await applyMawjBackup(backup);try{localStorage.setItem("mawj-cloud-backup-key",secret)}catch{}
+          setCloudBackupStatus("تمت استعادة النسخة السحابية بنجاح.");
+        }catch(error){console.error("MAWJ cloud backup restore failed",error);setCloudBackupStatus(error.message||"تعذرت استعادة النسخة");toast(error.message||"تعذرت استعادة النسخة السحابية")}
+        finally{button.disabled=false}
+      }
+
+      async function importMawjBackup(file){
+        try{await applyMawjBackup(JSON.parse(await file.text()))}
+        catch(error){console.error("MAWJ backup import failed",error);toast(error.message==="ملف النسخة غير صالح أو غير مدعوم"?error.message:"تعذر استيراد النسخة الاحتياطية")}
+      }
+      async function applyMawjBackup(backup){
+        try{
           if(backup?.app!=="MAWJ"||backup?.format!=="mawj-library-backup"||backup?.version!==1||!Array.isArray(backup.media)||!Array.isArray(backup.playlists))throw new Error("ملف النسخة غير صالح أو غير مدعوم");
           const byId=new Map(state.items.map(item=>[item.id,item.id])),used=new Set(),buckets=new Map();
           const signature=item=>JSON.stringify([item.name||"",Number(item.size)||0,item.kind||""]);
@@ -238,6 +276,11 @@
         $("#exportBackup").onclick=exportMawjBackup;
         $("#importBackup").onclick=()=>$("#backupInput").click();
         $("#backupInput").addEventListener("change",async e=>{const file=e.target.files?.[0];e.target.value="";if(file)await importMawjBackup(file)});
+        try{$("#cloudBackupKey").value=localStorage.getItem("mawj-cloud-backup-key")||""}catch{}
+        $("#cloudBackupGenerate").onclick=()=>{const key=createCloudBackupKey();$("#cloudBackupKey").value=key;try{localStorage.setItem("mawj-cloud-backup-key",key)}catch{};setCloudBackupStatus("تم إنشاء رمز جديد. انسخه واحتفظ به قبل المتابعة.")};
+        $("#cloudBackupCopy").onclick=async()=>{let key=$("#cloudBackupKey").value.trim();if(!key){key=createCloudBackupKey();$("#cloudBackupKey").value=key;try{localStorage.setItem("mawj-cloud-backup-key",key)}catch{}}try{await navigator.clipboard.writeText(key);setCloudBackupStatus("تم نسخ رمز الاستعادة. احتفظ به في مكان آمن.");toast("تم نسخ رمز الاستعادة")}catch{setCloudBackupStatus("تعذر النسخ تلقائيًا. حدّد الرمز وانسخه يدويًا.")}};
+        $("#cloudBackupSave").onclick=saveCloudMawjBackup;
+        $("#cloudBackupRestore").onclick=restoreCloudMawjBackup;
         $("#backupDialog").addEventListener("click",e=>{if(e.target===e.currentTarget)closeDialog("#backupDialog")});
         const appRoot=$("#app"),sidebarRestore=$("#sidebarRestoreLogo"),sidebarCollapse=$("#sidebarCollapse"),playlistPanel=$(".right-panel"),playlistCollapse=$("#playlistCollapse");
         const setSidebarCollapsed=collapsed=>{appRoot.classList.toggle("sidebar-collapsed",collapsed);localStorage.setItem("mawj-sidebar-collapsed",collapsed?"1":"0");sidebarRestore.title=collapsed?"فتح القائمة":"شعار موج";sidebarCollapse.title=collapsed?"توسيع القائمة":"طي القائمة";sidebarRestore.setAttribute("aria-label",collapsed?"فتح القائمة":"شعار موج");sidebarCollapse.setAttribute("aria-label",collapsed?"توسيع القائمة":"طي القائمة")};
