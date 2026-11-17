@@ -1,8 +1,12 @@
 # موج | MAWJ
 
+<p align="center">
+  <img src="assets/mawj/mawj-mark.svg" alt="MAWJ logo" width="112" />
+</p>
+
 مشغل وسائط شخصي باللغة العربية. أضف الملفات من جهازك، شغّل الصوت والفيديو داخل الصفحة، ورتّبها في قوائم تشغيل مستقلة للأغاني أو للفيديوهات.
 
-🌐 **جرّب موج مباشرة:** [https://media-play-one.vercel.app](https://media-play-one.vercel.app)
+🌐 **جرّب موج مباشرة:** [https://play-mawj.vercel.app](https://play-mawj.vercel.app)
 
 ## الاستخدام
 
