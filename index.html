@@ -266,7 +266,7 @@
           state.playlists.sort((a,b)=>b.createdAt-a.createdAt);render();closeDialog("#backupDialog");
           const note=missingItems?(" · "+missingItems+" عنصر لم يُطابق بملف موجود"):"";
           toast("استُعيدت "+restoredLists+" قائمة · تمت مطابقة "+matched+" ملف"+note);
-        }catch(error){console.error("MAWJ backup import failed",error);toast(error.message==="ملف النسخة غير صالح أو غير مدعوم"?error.message:"تعذر استيراد النسخة الاحتياطية")}
+        }catch(error){console.error("MAWJ backup import failed",error);throw error}
       }
 
       function bind(){
