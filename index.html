@@ -64,8 +64,8 @@
   .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}.cloud-backup{display:grid;gap:9px;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.cloud-backup-title{margin:0;color:var(--text);font-size:12px;font-weight:600}.cloud-backup-copy{margin:0!important;font-size:11px!important}.cloud-key-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.cloud-key-row .field{min-width:0;font-size:11px;direction:ltr;text-align:left}.cloud-key-actions{display:flex;gap:7px}.cloud-key-actions button{flex:1}.cloud-status{min-height:16px;color:var(--muted);font-size:10px;line-height:1.6}.cloud-backup .backup-actions{margin-top:2px}@media(max-width:440px){.cloud-key-row{grid-template-columns:1fr}.cloud-key-actions{display:grid;grid-template-columns:1fr 1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n
     /* Collapsible bottom player with persistent floating playback controls */
     /* MAWJ Theater Mode */
-    .theater-stage{position:fixed;z-index:20;inset:0;display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908}.theater-stage[hidden]{display:none!important}
-    .theater-stage::before{content:"";position:absolute;inset:-35px;background-image:var(--theater-art);background-position:center;background-size:cover;filter:blur(34px) brightness(.28) saturate(1.25);transform:scale(1.12)}
+    .theater-stage{position:fixed;z-index:30;inset:0;display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908}.theater-stage[hidden]{display:none!important}
+    .theater-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24221f 0%,#090908 76%)}
     .theater-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 5%,rgba(0,0,0,.28) 100%)}
     
     .theater-artwork{position:relative;z-index:1;width:min(68vw,68vh,680px);height:min(68vw,68vh,680px);object-fit:contain;border-radius:12px;box-shadow:0 24px 90px rgba(0,0,0,.5);animation:theaterReveal .55s cubic-bezier(.2,.75,.25,1) both;cursor:zoom-out}
@@ -74,10 +74,13 @@
     .theater-caption small{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:12px}
     @keyframes theaterReveal{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
     .now-cover{cursor:zoom-in}
-    body.theater-mode{overflow:hidden}\n    body.theater-mode .app>:not(.player-bar){visibility:hidden!important;pointer-events:none!important}\n    body.theater-mode .player-bar{z-index:21}
+    body.theater-mode{overflow:hidden}
+    body.theater-mode #app{visibility:hidden!important;pointer-events:none!important}
+    body.theater-mode #playerFab{display:none!important}
+    body.theater-mode .player-bar{z-index:31}
     body.theater-mode .theater-stage:not([hidden]){visibility:visible;opacity:1;pointer-events:auto}
     body.theater-mode.player-collapsed .player-fab-expand{display:none}
-    body.theater-mode .player-bar{background:rgba(20,19,17,.88);backdrop-filter:blur(18px)}
+    body.theater-mode .player-bar{z-index:31;background:rgba(20,19,17,.96);backdrop-filter:blur(18px)}
     @media(max-width:700px){.theater-artwork{width:min(86vw,58vh);height:min(86vw,58vh);border-radius:9px}.theater-caption{bottom:calc(82px + env(safe-area-inset-bottom))}}
     .player-bar{transition:transform .32s cubic-bezier(.2,.75,.25,1),opacity .24s ease}
     .player-bar.player-collapsed{transform:translateY(calc(100% + 2px));opacity:0;pointer-events:none}
@@ -228,11 +231,11 @@
           if(state.theaterUrl){URL.revokeObjectURL(state.theaterUrl);state.theaterUrl=null}
           artwork.removeAttribute("src");return;
         }
-        let src=item?.imageUrl?safeImageUrl(item.imageUrl):"";
-        if(!src&&(item?.coverBlob||item?.thumbBlob)){
-          if(state.theaterUrl)URL.revokeObjectURL(state.theaterUrl);
-          state.theaterUrl=URL.createObjectURL(item.coverBlob||item.thumbBlob);src=state.theaterUrl;
-        }
+        let src="";
+        const originalCover=item?.coverBlob;
+        if(originalCover){if(state.theaterUrl)URL.revokeObjectURL(state.theaterUrl);state.theaterUrl=URL.createObjectURL(originalCover);src=state.theaterUrl}
+        if(!src&&item?.imageUrl)src=safeImageUrl(item.imageUrl);
+        if(!src&&item?.thumbBlob){if(state.theaterUrl)URL.revokeObjectURL(state.theaterUrl);state.theaterUrl=URL.createObjectURL(item.thumbBlob);src=state.theaterUrl}
         if(!src)src=mawjLogoPaths[document.documentElement.dataset.mawjTheme||"default"];
         artwork.src=src;stage.style.setProperty("--theater-art","url("+JSON.stringify(src)+")");
         $("#theaterTitle").textContent=item?.name||"";
@@ -358,6 +361,7 @@
         $("#playerFabPlay").onclick=()=>$("#playPause").click();
         $("#nowCover").addEventListener("click",()=>setTheaterMode(true));
         $("#theaterArtwork").addEventListener("click",()=>setTheaterMode(false));
+        $("#theaterStage").addEventListener("click",e=>{if(e.target===$("#theaterStage"))setTheaterMode(false)});
 
         $("#addFiles").onclick=()=>$("#fileInput").click();
         $("#backupOpen").onclick=()=>{$("#backupDialog").classList.add("open");$("#backupDialog").setAttribute("aria-hidden","false")};
