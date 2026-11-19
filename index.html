@@ -42,9 +42,9 @@
     .primary-button{background:var(--accent-gradient);color:var(--accent-ink)}
     .nav-item.active,.playlist-item.active{background:var(--accent-soft)}
     .theme-control{position:relative;display:flex;align-items:center;justify-content:center}
-    .theme-toggle{width:40px;height:40px;min-width:40px;padding:0;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--accent);cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+    .theme-toggle{width:40px;height:40px;min-width:40px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:transparent;color:var(--accent);cursor:pointer;transition:transform .2s ease,color .2s ease}
     .theme-toggle svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s cubic-bezier(.2,.75,.25,1)}
-    .theme-toggle:hover{transform:translateY(-2px);border-color:var(--accent);background:var(--accent-soft)}
+    .theme-toggle:hover{transform:translateY(-2px);color:var(--text)}
     .theme-toggle:hover svg{transform:rotate(-9deg) scale(1.08)}
     .theme-toggle:active{transform:scale(.95)}
     .theme-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -135,7 +135,7 @@
         root.style.setProperty("--accent-soft",t.soft);
         root.dataset.mawjTheme=key;
         const logoPath=mawjLogoPaths[key];document.querySelectorAll("img[data-mawj-logo]").forEach(img=>{if(img.getAttribute("src")!==logoPath)img.setAttribute("src",logoPath)});const favicon=$("#mawjFavicon");if(favicon)favicon.href=logoPath;
-        if(themeToggle){const labels={default:"البرتقالي",red:"الأحمر",purple:"الأرجواني",blue:"الأزرق"};themeToggle.title="الثيم الحالي: "+labels[key]+" · اختيار الثيم";themeToggle.setAttribute("aria-label","الثيم الحالي: "+labels[key]+". فتح قائمة الثيمات");themeToggle.innerHTML=themeIcons[key];document.querySelectorAll(".theme-option").forEach(option=>{const active=option.dataset.theme===key;option.classList.toggle("active",active);option.setAttribute("aria-pressed",active?"true":"false")})}
+        if(themeToggle){const labels={default:"البرتقالي",red:"الأحمر",purple:"الأرجواني",blue:"الأزرق"};themeToggle.title="الثيم الحالي: "+labels[key]+" · اضغط للتبديل";themeToggle.setAttribute("aria-label","الثيم الحالي: "+labels[key]+". اضغط للتبديل إلى الثيم التالي");themeToggle.innerHTML=themeIcons[key];document.querySelectorAll(".theme-option").forEach(option=>{const active=option.dataset.theme===key;option.classList.toggle("active",active);option.setAttribute("aria-pressed",active?"true":"false")})}
         if(persist){try{localStorage.setItem("mawj-theme",key)}catch{}}
       }
       const themeIcons={
@@ -147,10 +147,7 @@
       const themeMenu=$("#themeMenu");
       function setThemeMenuOpen(open){if(!themeMenu||!themeToggle)return;themeMenu.hidden=!open;themeToggle.setAttribute("aria-expanded",open?"true":"false")}
       applyMawjTheme((()=>{try{return localStorage.getItem("mawj-theme")||"default"}catch{return"default"}})(),false);
-      themeToggle?.addEventListener("click",event=>{event.stopPropagation();setThemeMenuOpen(themeMenu.hidden)});
-      themeMenu?.addEventListener("click",event=>{const option=event.target.closest("[data-theme]");if(!option)return;applyMawjTheme(option.dataset.theme);setThemeMenuOpen(false)});
-      document.addEventListener("click",event=>{if(!event.target.closest(".theme-control"))setThemeMenuOpen(false)});
-      document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!themeMenu.hidden){setThemeMenuOpen(false);themeToggle.focus()}});
+      themeToggle?.addEventListener("click",()=>{const order=["default","red","purple","blue"],current=document.documentElement.dataset.mawjTheme||"default",next=order[(order.indexOf(current)+1)%order.length];applyMawjTheme(next)});
 
       const dbOpen=()=>new Promise((resolve,reject)=>{const req=indexedDB.open("mawj-library",1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains("media"))db.createObjectStore("media",{keyPath:"id"});if(!db.objectStoreNames.contains("playlists"))db.createObjectStore("playlists",{keyPath:"id"});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
       const reqResult=req=>new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});
