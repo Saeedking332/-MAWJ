@@ -64,11 +64,11 @@
   .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}.cloud-backup{display:grid;gap:9px;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.cloud-backup-title{margin:0;color:var(--text);font-size:12px;font-weight:600}.cloud-backup-copy{margin:0!important;font-size:11px!important}.cloud-key-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.cloud-key-row .field{min-width:0;font-size:11px;direction:ltr;text-align:left}.cloud-key-actions{display:flex;gap:7px}.cloud-key-actions button{flex:1}.cloud-status{min-height:16px;color:var(--muted);font-size:10px;line-height:1.6}.cloud-backup .backup-actions{margin-top:2px}@media(max-width:440px){.cloud-key-row{grid-template-columns:1fr}.cloud-key-actions{display:grid;grid-template-columns:1fr 1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n
     /* Collapsible bottom player with persistent floating playback controls */
     /* MAWJ Theater Mode */
-    .theater-stage{position:fixed;z-index:30;inset:0;display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908}.theater-stage[hidden]{display:none!important}
+    .theater-stage{position:fixed;z-index:30;top:var(--mawj-vv-top,0px);left:0;right:0;width:100%;height:var(--mawj-vv-height,100dvh);display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908;isolation:isolate}.theater-stage[hidden]{display:none!important}
     .theater-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24221f 0%,#090908 76%)}
-    .theater-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 5%,rgba(0,0,0,.28) 100%)}
-    
-    .theater-artwork-surface{position:absolute;z-index:1;inset:0;background-position:center;background-repeat:no-repeat;background-size:contain;cursor:zoom-out;filter:none!important;backdrop-filter:none!important}
+    .theater-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 5%,rgba(0,0,0,.28) 100%);pointer-events:none}
+    .theater-artwork-surface{position:absolute;z-index:1;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-out;filter:none!important;backdrop-filter:none!important}
+    .theater-artwork-image{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center center;flex:none;user-select:none;-webkit-user-drag:none;filter:none!important;transform:none!important}
     .theater-caption{position:absolute;z-index:2;bottom:calc(100px + env(safe-area-inset-bottom));left:20px;right:20px;text-align:center;pointer-events:none;text-shadow:0 2px 16px #000}
     .theater-caption b{display:block;font-size:clamp(15px,2vw,22px);font-weight:600}
     .theater-caption small{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:12px}
@@ -81,7 +81,7 @@
     body.theater-mode .theater-stage:not([hidden]){visibility:visible;opacity:1;pointer-events:auto}
     body.theater-mode.player-collapsed .player-fab-expand{display:none}
     body.theater-mode .player-bar{z-index:31;background:rgba(20,19,17,.96);backdrop-filter:blur(18px)}
-    @media(max-width:700px){.theater-artwork-surface{inset:0;background-position:center}.theater-caption{bottom:calc(82px + env(safe-area-inset-bottom))}}
+    @media(max-width:700px){.theater-artwork-image{object-fit:contain;object-position:center center}.theater-caption{bottom:calc(82px + env(safe-area-inset-bottom))}}
     .player-bar{transition:transform .32s cubic-bezier(.2,.75,.25,1),opacity .24s ease}
     .player-bar.player-collapsed{transform:translateY(calc(100% + 2px));opacity:0;pointer-events:none}
     .player-collapse{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--panel-2);color:var(--muted);flex:none}
@@ -122,7 +122,7 @@
     </main>
     <aside class="right-panel" aria-label="قوائم التشغيل والصف التالي"><div class="panel-heading"><h2>قوائم التشغيل</h2><div class="panel-heading-actions"><button class="mini-add" id="playlistCollapse" type="button" title="طي قوائم التشغيل" aria-label="طي قوائم التشغيل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 9 6 6 6-6"/></svg></button><button class="mini-add" id="newPlaylist" type="button" title="قائمة جديدة" aria-label="إنشاء قائمة تشغيل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button></div></div><div class="playlist-list" id="playlistList"></div><div class="panel-divider"></div><div class="panel-heading"><h2 id="queueTitle">الصف التالي</h2><span class="count" id="queueCount">0</span></div><div class="queue-list" id="queueList"></div></aside>
   </div>
-  <section class="theater-stage" id="theaterStage" aria-hidden="true"><div class="theater-artwork-surface" id="theaterArtworkSurface" role="img" aria-label="غلاف الوسائط الحالية"></div><div class="theater-caption"><b id="theaterTitle"></b></div></section>
+  <section class="theater-stage" id="theaterStage" aria-hidden="true"><div class="theater-artwork-surface" id="theaterArtworkSurface"><img class="theater-artwork-image" id="theaterArtworkImage" alt="غلاف الوسائط الحالية" draggable="false" /></div><div class="theater-caption"><b id="theaterTitle"></b></div></section>
   <footer class="player-bar" aria-label="عناصر التحكم في التشغيل"><div class="now-playing"><div class="now-cover" id="nowCover"><img src="/assets/mawj/mawj-mark.svg" alt="" /></div><div class="now-copy"><b id="nowTitle">لا يوجد شيء قيد التشغيل</b><small id="nowDetail">اختر ملفًا من مكتبتك</small></div><canvas class="now-waveform" id="nowWaveform" width="128" height="40" aria-label="مؤشر مستوى الصوت اللحظي" title="مؤشر مستوى الصوت اللحظي"></canvas></div><div class="transport"><div class="transport-buttons"><button class="transport-button" id="previous" type="button" aria-label="السابق"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zm13 1v12L9 12z"/></svg></button><button class="transport-button main-control" id="playPause" type="button" aria-label="تشغيل"><svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 12 7-12 7z"/></svg></button><button class="transport-button" id="next" type="button" aria-label="التالي"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM5 6v12l10-6z"/></svg></button></div><div class="progress-row"><span id="elapsed">0:00</span><input class="progress" id="progress" type="range" min="0" max="1000" value="0" aria-label="موضع التشغيل" /><span id="duration">0:00</span></div></div><div class="player-tools"><button class="player-collapse" id="playerCollapse" type="button" aria-label="طي شريط التشغيل" title="طي شريط التشغيل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 15 6-6 6 6"/></svg></button><button class="player-tool" id="shuffle" type="button" aria-label="تشغيل عشوائي" title="تشغيل عشوائي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button><button class="player-tool" id="repeat" type="button" aria-label="تكرار القائمة" title="تكرار القائمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg></button><svg style="width:15px;height:15px;color:var(--muted)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M11 5 6 9H3v6h3l5 4zM15 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg><input class="volume" id="volume" type="range" min="0" max="1" step=".01" value=".8" aria-label="مستوى الصوت" /></div></footer>
   <div class="player-fab" id="playerFab" aria-label="مشغل موج المصغر"><button class="player-fab-play" id="playerFabPlay" type="button" aria-label="تشغيل" title="تشغيل"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 12 7-12 7z"/></svg></button><button class="player-fab-expand" id="playerFabExpand" type="button" aria-label="إظهار شريط التشغيل" title="إظهار شريط التشغيل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 14 6-6 6 6"/></svg></button></div>
   <input id="fileInput" class="hidden" type="file" multiple /><input id="thumbnailInput" class="hidden" type="file" accept="image/*" />
@@ -224,12 +224,12 @@
       function renderQueue(){const root=$("#queueList");let queueItems=state.queue.map(id=>state.items.find(x=>x.id===id)).filter(Boolean);$("#queueCount").textContent=queueItems.length;root.innerHTML=queueItems.length?queueItems.slice(0,7).map((item,i)=>`<div class="queue-entry"><span class="queue-no">${String(i+1).padStart(2,"0")}</span><span class="queue-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span></div>`).join(""):"<div class=\"queue-empty\">الملفات التالية ستظهر هنا عند بدء التشغيل.</div>"}
       function isPlaying(){if(state.currentKind==="pdf"||state.currentKind==="text")return false;return state.currentKind==="video"? !$("#videoEngine").paused:!$("#audioEngine").paused}
       function setTheaterMode(enabled){
-        const stage=$("#theaterStage"),surface=$("#theaterArtworkSurface"),item=state.items.find(x=>x.id===state.currentId);
+        const stage=$("#theaterStage"),surface=$("#theaterArtworkSurface"),artwork=$("#theaterArtworkImage"),item=state.items.find(x=>x.id===state.currentId);
         if(enabled&&(!item||!["audio","video"].includes(item.kind))){toast("شغّل أغنية أو فيديو أولًا");return}
         state.theaterLoadToken++;
         if(!enabled){
           document.body.classList.remove("theater-mode");stage.hidden=true;stage.inert=true;stage.setAttribute("aria-hidden","true");
-          surface.style.backgroundImage="none";
+          artwork.removeAttribute("src");
           if(state.theaterUrl){URL.revokeObjectURL(state.theaterUrl);state.theaterUrl=null}
           return;
         }
@@ -246,7 +246,7 @@
         candidates.push({url:mawjLogoPaths[document.documentElement.dataset.mawjTheme||"default"]});
         const token=state.theaterLoadToken;
         let index=0;
-        surface.style.backgroundImage="none";
+        artwork.removeAttribute("src");
         const tryNext=()=>{
           if(token!==state.theaterLoadToken||!document.body.classList.contains("theater-mode"))return;
           if(state.theaterUrl){URL.revokeObjectURL(state.theaterUrl);state.theaterUrl=null}
@@ -256,7 +256,7 @@
           const probe=new Image();
           probe.onload=()=>{
             if(token!==state.theaterLoadToken)return;
-            surface.style.backgroundImage="url("+JSON.stringify(src)+")";
+            artwork.src=src;
           };
           probe.onerror=()=>{
             if(token!==state.theaterLoadToken)return;
@@ -266,6 +266,7 @@
           probe.src=src;
         };
         $("#theaterTitle").textContent=item?.name||"";
+        syncTheaterViewport();
         stage.hidden=false;stage.inert=false;stage.setAttribute("aria-hidden","false");
         document.body.classList.add("theater-mode");
         tryNext();
@@ -387,6 +388,17 @@
         $("#playerCollapse").onclick=()=>setPlayerCollapsed(!playerBar.classList.contains("player-collapsed"));
         $("#playerFabExpand").onclick=()=>setPlayerCollapsed(false);
         $("#playerFabPlay").onclick=()=>$("#playPause").click();
+        const syncTheaterViewport=()=>{
+          const viewport=window.visualViewport;
+          const height=Math.max(1,Math.round(viewport?.height||window.innerHeight||document.documentElement.clientHeight));
+          const top=Math.max(0,Math.round(viewport?.offsetTop||0));
+          document.documentElement.style.setProperty("--mawj-vv-height",height+"px");
+          document.documentElement.style.setProperty("--mawj-vv-top",top+"px");
+        };
+        window.addEventListener("resize",syncTheaterViewport,{passive:true});
+        window.visualViewport?.addEventListener("resize",syncTheaterViewport,{passive:true});
+        window.visualViewport?.addEventListener("scroll",syncTheaterViewport,{passive:true});
+        syncTheaterViewport();
         $("#nowCover").addEventListener("click",()=>setTheaterMode(true));
         $("#theaterArtworkSurface").addEventListener("click",()=>setTheaterMode(false));
         $("#theaterStage").addEventListener("click",e=>{if(e.target===$("#theaterStage"))setTheaterMode(false)});
