@@ -64,11 +64,11 @@
   .backup-trigger svg{width:18px;height:18px}.backup-dialog{width:min(500px,100%)}.backup-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.backup-actions button{width:100%;min-height:44px}.backup-note{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font-size:11px;line-height:1.8}.backup-note strong{color:var(--text)}@media(max-width:440px){.backup-actions{grid-template-columns:1fr}}.cloud-backup{display:grid;gap:9px;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.cloud-backup-title{margin:0;color:var(--text);font-size:12px;font-weight:600}.cloud-backup-copy{margin:0!important;font-size:11px!important}.cloud-key-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.cloud-key-row .field{min-width:0;font-size:11px;direction:ltr;text-align:left}.cloud-key-actions{display:flex;gap:7px}.cloud-key-actions button{flex:1}.cloud-status{min-height:16px;color:var(--muted);font-size:10px;line-height:1.6}.cloud-backup .backup-actions{margin-top:2px}@media(max-width:440px){.cloud-key-row{grid-template-columns:1fr}.cloud-key-actions{display:grid;grid-template-columns:1fr 1fr}}\n  @media(hover:none){.thumbnail-edit{opacity:1}}\n
     /* Collapsible bottom player with persistent floating playback controls */
     /* MAWJ Theater Mode */
-    .theater-stage{position:fixed;z-index:30;top:var(--mawj-vv-top,0px);left:0;right:0;width:100%;height:var(--mawj-vv-height,100dvh);display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908;isolation:isolate}.theater-stage[hidden]{display:none!important}
+    .theater-stage{position:fixed;z-index:2147483000;inset:0;width:100%;height:100vh;height:100dvh;display:grid;visibility:hidden;opacity:0;pointer-events:none;place-items:center;overflow:hidden;background:#090908;isolation:isolate;transform:none;contain:strict}.theater-stage[hidden]{display:none!important}
     .theater-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24221f 0%,#090908 76%)}
     .theater-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 5%,rgba(0,0,0,.28) 100%);pointer-events:none}
     .theater-artwork-surface{position:absolute;z-index:1;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-out;filter:none!important;backdrop-filter:none!important}
-    .theater-artwork-image{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;object-position:center center;flex:none;user-select:none;-webkit-user-drag:none;filter:none!important;transform:none!important}
+    .theater-artwork-image{display:block;width:100%;height:100%;min-width:0;min-height:0;max-width:100vw;max-height:100%;object-fit:contain;object-position:50% 50%;flex:none;user-select:none;-webkit-user-drag:none;filter:none!important;transform:none!important}
     .theater-caption{position:absolute;z-index:2;bottom:calc(100px + env(safe-area-inset-bottom));left:20px;right:20px;text-align:center;pointer-events:none;text-shadow:0 2px 16px #000}
     .theater-caption b{display:block;font-size:clamp(15px,2vw,22px);font-weight:600}
     .theater-caption small{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:12px}
@@ -273,7 +273,6 @@
           probe.src=src;
         };
         $("#theaterTitle").textContent=item?.name||"";
-        syncTheaterViewport();
         stage.hidden=false;stage.inert=false;stage.setAttribute("aria-hidden","false");
         document.body.classList.add("theater-mode");
         tryNext();
@@ -395,10 +394,6 @@
         $("#playerCollapse").onclick=()=>setPlayerCollapsed(!playerBar.classList.contains("player-collapsed"));
         $("#playerFabExpand").onclick=()=>setPlayerCollapsed(false);
         $("#playerFabPlay").onclick=()=>$("#playPause").click();
-        window.addEventListener("resize",syncTheaterViewport,{passive:true});
-        window.visualViewport?.addEventListener("resize",syncTheaterViewport,{passive:true});
-        window.visualViewport?.addEventListener("scroll",syncTheaterViewport,{passive:true});
-        syncTheaterViewport();
         $("#nowCover").addEventListener("click",()=>setTheaterMode(true));
         $("#theaterArtworkSurface").addEventListener("click",()=>setTheaterMode(false));
         $("#theaterStage").addEventListener("click",e=>{if(e.target===$("#theaterStage"))setTheaterMode(false)});
