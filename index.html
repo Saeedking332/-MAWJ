@@ -68,7 +68,7 @@
     .theater-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24221f 0%,#090908 76%)}
     .theater-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 5%,rgba(0,0,0,.28) 100%)}
     
-    .theater-artwork-surface{position:absolute;z-index:1;inset:0;background-position:center;background-repeat:no-repeat;background-size:contain;cursor:zoom-out;filter:none!important;backdrop-filter:none!important}
+    .theater-artwork-surface{position:absolute;z-index:1;inset:0 0 calc(104px + env(safe-area-inset-bottom));background-position:center top;background-repeat:no-repeat;background-size:contain;cursor:zoom-out;filter:none!important;backdrop-filter:none!important}
     .theater-caption{position:absolute;z-index:2;bottom:calc(100px + env(safe-area-inset-bottom));left:20px;right:20px;text-align:center;pointer-events:none;text-shadow:0 2px 16px #000}
     .theater-caption b{display:block;font-size:clamp(15px,2vw,22px);font-weight:600}
     .theater-caption small{display:block;margin-top:5px;color:rgba(255,255,255,.7);font-size:12px}
@@ -81,7 +81,7 @@
     body.theater-mode .theater-stage:not([hidden]){visibility:visible;opacity:1;pointer-events:auto}
     body.theater-mode.player-collapsed .player-fab-expand{display:none}
     body.theater-mode .player-bar{z-index:31;background:rgba(20,19,17,.96);backdrop-filter:blur(18px)}
-    @media(max-width:700px){.theater-artwork-surface{inset:0}.theater-caption{bottom:calc(82px + env(safe-area-inset-bottom))}}
+    @media(max-width:700px){.theater-artwork-surface{inset:0 0 calc(96px + env(safe-area-inset-bottom));background-position:center top}.theater-caption{bottom:calc(82px + env(safe-area-inset-bottom))}}
     .player-bar{transition:transform .32s cubic-bezier(.2,.75,.25,1),opacity .24s ease}
     .player-bar.player-collapsed{transform:translateY(calc(100% + 2px));opacity:0;pointer-events:none}
     .player-collapse{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:var(--panel-2);color:var(--muted);flex:none}
