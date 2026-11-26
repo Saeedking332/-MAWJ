@@ -223,6 +223,13 @@
       function renderMobilePlaylists(){const select=$("#mobilePlaylistSelect"),previous=state.activePlaylist?`playlist:${state.activePlaylist}`:"all";select.innerHTML='<option value="all">كل الملفات</option>'+state.playlists.map(p=>`<option value="playlist:${p.id}">${escapeHtml(p.name)} · ${p.kind==="audio"?"أغاني":"فيديو"}</option>`).join("");select.value=[...select.options].some(o=>o.value===previous)?previous:"all"}
       function renderQueue(){const root=$("#queueList");let queueItems=state.queue.map(id=>state.items.find(x=>x.id===id)).filter(Boolean);$("#queueCount").textContent=queueItems.length;root.innerHTML=queueItems.length?queueItems.slice(0,7).map((item,i)=>`<div class="queue-entry"><span class="queue-no">${String(i+1).padStart(2,"0")}</span><span class="queue-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</span></div>`).join(""):"<div class=\"queue-empty\">الملفات التالية ستظهر هنا عند بدء التشغيل.</div>"}
       function isPlaying(){if(state.currentKind==="pdf"||state.currentKind==="text")return false;return state.currentKind==="video"? !$("#videoEngine").paused:!$("#audioEngine").paused}
+      function syncTheaterViewport(){
+        const viewport=window.visualViewport;
+        const height=Math.max(1,Math.round(viewport?.height||window.innerHeight||document.documentElement.clientHeight));
+        const top=Math.max(0,Math.round(viewport?.offsetTop||0));
+        document.documentElement.style.setProperty("--mawj-vv-height",height+"px");
+        document.documentElement.style.setProperty("--mawj-vv-top",top+"px");
+      }
       function setTheaterMode(enabled){
         const stage=$("#theaterStage"),surface=$("#theaterArtworkSurface"),artwork=$("#theaterArtworkImage"),item=state.items.find(x=>x.id===state.currentId);
         if(enabled&&(!item||!["audio","video"].includes(item.kind))){toast("شغّل أغنية أو فيديو أولًا");return}
@@ -388,13 +395,6 @@
         $("#playerCollapse").onclick=()=>setPlayerCollapsed(!playerBar.classList.contains("player-collapsed"));
         $("#playerFabExpand").onclick=()=>setPlayerCollapsed(false);
         $("#playerFabPlay").onclick=()=>$("#playPause").click();
-        const syncTheaterViewport=()=>{
-          const viewport=window.visualViewport;
-          const height=Math.max(1,Math.round(viewport?.height||window.innerHeight||document.documentElement.clientHeight));
-          const top=Math.max(0,Math.round(viewport?.offsetTop||0));
-          document.documentElement.style.setProperty("--mawj-vv-height",height+"px");
-          document.documentElement.style.setProperty("--mawj-vv-top",top+"px");
-        };
         window.addEventListener("resize",syncTheaterViewport,{passive:true});
         window.visualViewport?.addEventListener("resize",syncTheaterViewport,{passive:true});
         window.visualViewport?.addEventListener("scroll",syncTheaterViewport,{passive:true});
